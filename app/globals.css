@@ -14,3 +14,28 @@
   --color-purple-main: #a445ed;
   --color-red-main: #ff5252;
 }
+
+.text-heading-l {
+  font-size: 64px;
+  line-height: 77px;
+}
+
+.text-heading-m {
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.text-heading-s {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.text-body-m {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.text-body-s {
+  font-size: 14px;
+  line-height: 17px;
+}
