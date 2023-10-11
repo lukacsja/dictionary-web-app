@@ -14,7 +14,7 @@ const Header = () => {
   };
 
   return (
-    <header className='flex h-8 w-full items-center justify-between'>
+    <header className='mb-6 flex h-8 w-full items-center justify-between md:mb-[54px] lg:mb-[60px]'>
       <Image src={logo} alt='logo' priority />
       <div className='flex h-full items-center gap-4'>
         <FontSelector />
