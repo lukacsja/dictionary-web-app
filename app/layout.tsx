@@ -1,8 +1,7 @@
+import { FontContextProvider } from '@/context/FontContext';
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-
-const inter = Inter({ subsets: ['latin'] });
+import ThemeContextProvider from '@/context/ThemeContext';
 
 export const metadata: Metadata = {
   title: 'dictionary web app',
@@ -16,7 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`dark:bg-gray-8 text-gray-6 h-screen bg-white p-6 dark:text-white md:px-[39px] md:py-[58px]`}
+      >
+        <ThemeContextProvider>
+          <FontContextProvider>{children}</FontContextProvider>
+        </ThemeContextProvider>
+      </body>
     </html>
   );
 }

@@ -39,3 +39,9 @@
   font-size: 14px;
   line-height: 17px;
 }
+
+.reset-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
