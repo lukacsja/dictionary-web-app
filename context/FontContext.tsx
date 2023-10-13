@@ -2,26 +2,24 @@
 
 import React, { createContext, useContext, useState } from 'react';
 import { choosableFonts } from '@/lib/data';
-import { NextFont } from 'next/dist/compiled/@next/font';
+import { Font } from '@/lib/types';
 
 interface FontContextProviderProps {
   children: React.ReactNode;
 }
 
 interface FontContextProps {
-  selectedFont: NextFont;
-  setSelectedFont: React.Dispatch<React.SetStateAction<NextFont>>;
-  changeFont: (font: NextFont) => void;
+  selectedFont: Font;
+  setSelectedFont: React.Dispatch<React.SetStateAction<Font>>;
+  changeFont: (font: Font) => void;
 }
 
 const FontContext = createContext<FontContextProps | null>(null);
 
 export function FontContextProvider({ children }: FontContextProviderProps) {
-  const [selectedFont, setSelectedFont] = useState<NextFont>(
-    choosableFonts[0].font
-  );
+  const [selectedFont, setSelectedFont] = useState<Font>(choosableFonts[0]);
 
-  const changeFont = (newFont: NextFont) => {
+  const changeFont = (newFont: Font) => {
     setSelectedFont(newFont);
   };
 
@@ -38,5 +36,6 @@ export function useFont() {
   if (context === null) {
     throw new Error('useFont muse be used within a FontContextProvider');
   }
+
   return context;
 }

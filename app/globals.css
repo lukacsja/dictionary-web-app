@@ -18,6 +18,7 @@
 .text-heading-l {
   font-size: 64px;
   line-height: 77px;
+  font-weight: bold;
 }
 
 .text-heading-m {
@@ -44,4 +45,23 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+}
+
+.list-styles::before {
+  content: '';
+  background-color: #8f19e8;
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 100%;
+}
+
+.play-icon {
+  transition: fill 200ms;
+
+  fill: black;
+}
+
+.play-icon:hover {
+  fill: white;
 }

@@ -1,29 +1,125 @@
-import React from 'react';
-import iconSearch from '../public/icons/icon-search.svg';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { Meaning, WordInfo, Errors } from '@/lib/types';
+import SearchResult from './search-result';
+import iconSearch from '../public/icons/icon-search.svg';
+import WordNotFound from './word-not-found';
 
 const SearchField = () => {
-  const handleFormSubmit = (event: React.FormEvent) => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResult, setSearchResult] = useState<WordInfo | null>(null);
+  const [searchError, setSearchError] = useState<string>('');
+
+  const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    setSearchResult(null);
+
+    try {
+      const response = await fetch(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${searchQuery}`
+      );
+      if (response.ok) {
+        const data: WordInfo[] = await response.json();
+        setSearchResult(data[0]);
+      } else {
+        console.error('Failed to fetch data from the API');
+        if (searchQuery.length) {
+          setSearchError(Errors.WordNotFound);
+        }
+      }
+    } catch (error) {
+      console.error('An error occurred while fetching data:', error);
+    }
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    setSearchError('');
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSubmitErrors = (event: React.FormEvent<HTMLInputElement>) => {
+    event.preventDefault();
+
+    if (!searchQuery.length) {
+      setSearchError(Errors.EmptySearchField);
+    }
+  };
+
+  const getMeaningList = () => {
+    const result: Meaning[] = [];
+
+    if (searchResult) {
+      searchResult.meanings.map((meaning) => {
+        result.push(meaning);
+      });
+    }
+
+    return result;
+  };
+
+  const getAudioFile = () => {
+    const result: string[] = [];
+
+    searchResult?.phonetics.map((phon) => {
+      if (phon.audio.length > 0) {
+        result.push(phon.audio);
+      }
+    });
+
+    return result;
+  };
+
+  const playAudioFile = () => {
+    const audio = new Audio(getAudioFile()[0]);
+    audio.play();
   };
 
   return (
-    <form
-      className='bg-gray-2 dark:bg-gray-7 flex h-12 w-full items-center justify-between gap-2 rounded-2xl px-6 md:h-16'
-      onSubmit={handleFormSubmit}
-    >
-      <label htmlFor='searchField' className='sr-only'>
-        Search for any word:
-      </label>
-      <input
-        type='text'
-        className='h-full w-full bg-inherit outline-none'
-        placeholder='Search for any word...'
-      />
-      <button type='submit' className=''>
-        <Image src={iconSearch} alt='magnifying glass' />
-      </button>
-    </form>
+    <>
+      <form
+        className='flex flex-col gap-2'
+        onSubmit={handleFormSubmit}
+        name='searchField'
+      >
+        <label htmlFor='searchField' className='sr-only'>
+          Search for any word:
+        </label>
+        <div className='relative'>
+          <input
+            type='text'
+            className='h-12 w-full rounded-2xl bg-gray-2 pl-6 pr-12 font-bold outline-none dark:bg-gray-7 md:h-16'
+            placeholder='Search for any word...'
+            value={searchQuery}
+            onChange={handleInputChange}
+            onInvalid={handleSubmitErrors}
+            required
+          />
+          <button
+            type='submit'
+            className='absolute right-6 top-1/2 -translate-y-1/2'
+          >
+            <Image src={iconSearch} alt='magnifying glass' />
+          </button>
+        </div>
+        {searchError === Errors.EmptySearchField && (
+          <span className='text-heading-s text-red-main'>{searchError}</span>
+        )}
+      </form>
+
+      {searchResult && (
+        <SearchResult
+          searchResult={searchResult}
+          playAudioFile={playAudioFile}
+          meaningList={getMeaningList()}
+        />
+      )}
+
+      {searchError === Errors.WordNotFound && <WordNotFound />}
+    </>
   );
 };
 

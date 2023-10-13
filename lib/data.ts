@@ -5,7 +5,7 @@ export const inconsolata = Inconsolata({ subsets: ['latin'] });
 export const lora = Lora({ subsets: ['latin'] });
 
 export const choosableFonts = [
-  { label: 'mono', font: inconsolata },
-  { label: 'serif', font: lora },
   { label: 'sans serif', font: inter },
+  { label: 'serif', font: lora },
+  { label: 'mono', font: inconsolata },
 ];

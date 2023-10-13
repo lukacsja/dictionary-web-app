@@ -16,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`dark:bg-gray-8 text-gray-6 h-screen bg-white p-6 dark:text-white md:px-[39px] md:py-[58px]`}
+        className={`select-[#a445ed] flex min-h-screen justify-center bg-white text-gray-6 selection:bg-[#a445ed] selection:text-white dark:bg-gray-8 dark:text-white`}
       >
         <ThemeContextProvider>
           <FontContextProvider>{children}</FontContextProvider>

@@ -9,10 +9,6 @@ import MoonLogo from './icons/moon-logo';
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
 
-  const applyIconColors = () => {
-    return theme === 'light' ? '#757575' : '#a445ed';
-  };
-
   return (
     <header className='mb-6 flex h-8 w-full items-center justify-between md:mb-[54px] lg:mb-[60px]'>
       <Image src={logo} alt='logo' priority />
@@ -21,7 +17,7 @@ const Header = () => {
         <SectionDivider direction='vertical' />
         <div className='flex items-center gap-3'>
           <button
-            className='bg-gray-4 dark:bg-purple-main relative flex h-5 w-10 items-center rounded-[10px] transition-all duration-500'
+            className='relative flex h-5 w-10 items-center rounded-[10px] bg-gray-4 transition-all duration-500 dark:bg-purple-main'
             onClick={toggleTheme}
           >
             <div
@@ -30,7 +26,7 @@ const Header = () => {
               } transition-all duration-300`}
             />
           </button>
-          <MoonLogo stroke={applyIconColors()} />
+          <MoonLogo stroke={theme === 'light' ? '#757575' : '#a445ed'} />
         </div>
       </div>
     </header>
