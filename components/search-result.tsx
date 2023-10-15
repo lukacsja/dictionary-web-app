@@ -48,9 +48,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
 
             <h4 className='mt-8 text-[16px] text-gray-4 md:mt-11'>Meaning</h4>
 
-            <ul className='mt-4 text-[15px] leading-6 md:mt-8'>
+            <ul className='mt-4 list-disc text-[15px] leading-6 marker:text-purple-main md:mt-8'>
               {meaning.definitions.map((def) => (
-                <li className='mb-3' key={def.definition}>
+                <li className='mb-3 ml-4' key={def.definition}>
                   {def.definition}
                 </li>
               ))}
