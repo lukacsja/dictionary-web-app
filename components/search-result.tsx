@@ -57,14 +57,14 @@ const SearchResult: React.FC<SearchResultProps> = ({
             </ul>
 
             {meaning.synonyms.length > 0 && (
-              <div>
-                <h4 className='mt-6 text-[16px] text-gray-4 md:mt-10'>
-                  Synonyms
-                </h4>
+              <div className='mt-6 flex gap-6 md:gap-10'>
+                <h4 className='text-[16px] text-gray-4 md:mt-10'>Synonyms</h4>
                 <div>
-                  {meaning.synonyms.map((syn) => (
+                  {meaning.synonyms.map((syn, index) => (
                     <span className='font-bold text-purple-main' key={syn}>
-                      {`${syn}, `}
+                      {index === meaning.synonyms.length - 1
+                        ? `${syn}`
+                        : `${syn}, `}
                     </span>
                   ))}
                 </div>
