@@ -15,28 +15,28 @@
   --color-red-main: #ff5252;
 }
 
-.text-heading-l {
-  font-size: 64px;
-  line-height: 77px;
-  font-weight: bold;
-}
+@layer base {
+  .font-h1 {
+    @apply text-[32px] font-bold leading-[40px] md:text-[64px] md:leading-[68px] lg:leading-[77px];
+  }
 
-.text-heading-m {
-  font-size: 24px;
-  line-height: 29px;
-}
+  .font-phonetic {
+    @apply text-[18px] leading-[24px] md:text-[24px] md:leading-[29px];
+  }
 
-.text-heading-s {
-  font-size: 20px;
-  line-height: 24px;
-}
+  .font-partOfSpeech {
+    @apply text-[18px] font-bold italic leading-[22px] md:text-[24px] md:leading-[29px];
+  }
 
-.text-body-m {
-  font-size: 18px;
-  line-height: 24px;
-}
+  .font-h4 {
+    @apply text-[16px] leading-[19px] md:text-[20px] md:leading-[24px];
+  }
 
-.text-body-s {
-  font-size: 14px;
-  line-height: 17px;
+  .font-list {
+    @apply text-[15px] leading-[24px] md:text-[18px];
+  }
+
+  .font-h5 {
+    @apply text-[14px] leading-[17px];
+  }
 }

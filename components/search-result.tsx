@@ -20,11 +20,9 @@ const SearchResult: React.FC<SearchResultProps> = ({
   return (
     <div className='mt-6 md:mt-12'>
       <div className='flex items-center justify-between'>
-        <div className='flex flex-col gap-2 md:gap-3'>
-          <h1 className='text-[32px] font-bold md:text-[64px]'>
-            {searchResult.word}
-          </h1>
-          <h2 className='text-body-m text-purple-main'>
+        <div className='flex flex-col gap-2 md:gap-3 lg:gap-1'>
+          <h1 className='font-h1'>{searchResult.word}</h1>
+          <h2 className='font-phonetic text-purple-main'>
             {searchResult.phonetic}
           </h2>
         </div>
@@ -36,54 +34,55 @@ const SearchResult: React.FC<SearchResultProps> = ({
         </button>
       </div>
 
-      <div>
-        {meaningList.map((meaning) => (
-          <div key={meaning.partOfSpeech} className='mb-8 mt-8 md:mt-10'>
-            <div className='flex items-center gap-4 md:gap-8'>
-              <h3 className='text-[18px] font-bold italic'>
-                {meaning.partOfSpeech}
-              </h3>
-              <SectionDivider direction='horizontal' />
-            </div>
-
-            <h4 className='mt-8 text-[16px] text-gray-4 md:mt-11'>Meaning</h4>
-
-            <ul className='mt-4 list-disc text-[15px] leading-6 marker:text-purple-main md:mt-8'>
-              {meaning.definitions.map((def) => (
-                <li className='mb-3 ml-4' key={def.definition}>
-                  {def.definition}
-                </li>
-              ))}
-            </ul>
-
-            {meaning.synonyms.length > 0 && (
-              <div className='mt-6 flex gap-6 md:gap-10'>
-                <h4 className='text-[16px] text-gray-4 md:mt-10'>Synonyms</h4>
-                <div>
-                  {meaning.synonyms.map((syn, index) => (
-                    <span className='font-bold text-purple-main' key={syn}>
-                      {index === meaning.synonyms.length - 1
-                        ? `${syn}`
-                        : `${syn}, `}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
+      {meaningList.map((meaning) => (
+        <div key={meaning.partOfSpeech} className='mb-8 mt-8 md:mt-10 lg:mt-11'>
+          <div className='flex items-center gap-4 md:gap-6'>
+            <h3 className='font-partOfSpeech'>{meaning.partOfSpeech}</h3>
+            <SectionDivider direction='horizontal' />
           </div>
-        ))}
-        <SectionDivider direction='horizontal' />
-        <div className='mt-6 flex flex-col gap-2.5 md:flex-row md:gap-6'>
-          <span className='text-body-s text-gray-4'>Source</span>
-          <Link
-            href={searchResult.sourceUrls[0]}
-            target='_blank'
-            className='text-body-s flex items-center gap-2.5 underline'
-          >
-            <span>{searchResult.sourceUrls[0]}</span>
-            <Image src={newWindowIcon} alt='new window' />
-          </Link>
+
+          <h4 className='font-h4 mt-8 text-gray-4 md:mt-11 lg:mt-10'>
+            Meaning
+          </h4>
+
+          <ul className='font-list mt-4 list-disc marker:text-purple-main md:mt-7'>
+            {meaning.definitions.map((def) => (
+              <li className='mb-3 ml-4 md:ml-12' key={def.definition}>
+                {def.definition}
+              </li>
+            ))}
+          </ul>
+
+          {meaning.synonyms.length > 0 && (
+            <div className='mt-6 flex items-center gap-6 md:mt-10 md:gap-10 lg:gap-6'>
+              <h4 className='font-h4 text-gray-4'>Synonyms</h4>
+              <div>
+                {meaning.synonyms.map((syn, index) => (
+                  <span
+                    className='font-h4 font-bold text-purple-main'
+                    key={syn}
+                  >
+                    {index === meaning.synonyms.length - 1
+                      ? `${syn}`
+                      : `${syn}, `}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
+      ))}
+      <SectionDivider direction='horizontal' />
+      <div className='font-h5 mt-6 flex flex-col gap-2.5 md:flex-row md:gap-6'>
+        <h5 className='text-gray-4'>Source</h5>
+        <Link
+          href={searchResult.sourceUrls[0]}
+          target='_blank'
+          className='flex items-center gap-2.5 underline'
+        >
+          <span>{searchResult.sourceUrls[0]}</span>
+          <Image src={newWindowIcon} alt='new window' />
+        </Link>
       </div>
     </div>
   );

@@ -17,21 +17,21 @@ const FontSelector: React.FC = () => {
   };
 
   return (
-    <div className='relative z-10 text-[14px] font-bold transition-all duration-300 md:text-[18px]'>
+    <div className='relative z-10 text-[14px] font-bold leading-[24px] md:text-[18px]'>
       <button
         className='flex h-6 w-[120px] items-center justify-between'
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
-        <span>{selectedFont.label}</span>
+        <span className='capitalize'>{selectedFont.label}</span>
         <Image src={arrowdown} alt='arrow down' />
       </button>
 
       {isMenuOpen && (
-        <ul className='absolute right-0 top-8 flex w-[180px] flex-col gap-4 rounded-2xl bg-white p-6 shadow-lg dark:bg-gray-7 dark:shadow-purple-main'>
+        <ul className='absolute right-0 top-8 flex w-[180px] flex-col rounded-2xl bg-white p-4 capitalize shadow-lg dark:bg-gray-7 dark:shadow-purple-main'>
           {choosableFonts.map((font) => (
             <li
               key={font.label}
-              className={`cursor-pointer hover:text-purple-main ${font.font.className}`}
+              className={`cursor-pointer p-2 transition-all duration-300 hover:text-purple-main ${font.font.className}`}
               onClick={() => handleFontsChange(font)}
             >
               {font.label}

@@ -91,7 +91,7 @@ const SearchField = () => {
         <div className='relative'>
           <input
             type='text'
-            className='h-12 w-full rounded-2xl bg-gray-2 pl-6 pr-12 font-bold outline-none dark:bg-gray-7 md:h-16'
+            className='h-12 w-full rounded-2xl bg-gray-2 pl-6 pr-12 text-[16px] font-bold outline-none dark:bg-gray-7 md:h-16 md:text-[20px]'
             placeholder='Search for any word...'
             value={searchQuery}
             onChange={handleInputChange}
