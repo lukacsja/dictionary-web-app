@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Meaning, WordInfo, Errors } from '@/lib/types';
+import { Meaning, WordInfo, SubmitErrors } from '@/lib/types';
 import SearchResult from './search-result';
 import iconSearch from '../public/icons/icon-search.svg';
 import WordNotFound from './word-not-found';
@@ -26,7 +26,7 @@ const SearchField = () => {
       } else {
         console.error('Failed to fetch data from the API');
         if (searchQuery.length) {
-          setSearchError(Errors.WordNotFound);
+          setSearchError(SubmitErrors.WordNotFound);
         }
       }
     } catch (error) {
@@ -45,7 +45,7 @@ const SearchField = () => {
     event.preventDefault();
 
     if (!searchQuery.length) {
-      setSearchError(Errors.EmptySearchField);
+      setSearchError(SubmitErrors.EmptySearchField);
     }
   };
 
@@ -105,8 +105,10 @@ const SearchField = () => {
             <Image src={iconSearch} alt='magnifying glass' />
           </button>
         </div>
-        {searchError === Errors.EmptySearchField && (
-          <span className='text-heading-s text-red-main'>{searchError}</span>
+        {searchError === SubmitErrors.EmptySearchField && (
+          <span className='text-[16px] text-red-main md:text-[20px]'>
+            {searchError}
+          </span>
         )}
       </form>
 
@@ -118,7 +120,7 @@ const SearchField = () => {
         />
       )}
 
-      {searchError === Errors.WordNotFound && <WordNotFound />}
+      {searchError === SubmitErrors.WordNotFound && <WordNotFound />}
     </>
   );
 };

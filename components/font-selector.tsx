@@ -19,7 +19,7 @@ const FontSelector: React.FC = () => {
   return (
     <div className='relative z-10 text-[14px] font-bold leading-[24px] md:text-[18px]'>
       <button
-        className='flex h-6 w-[120px] items-center justify-between'
+        className='flex h-6 w-[100px] items-center justify-between md:w-[120px]'
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
         <span className='capitalize'>{selectedFont.label}</span>
