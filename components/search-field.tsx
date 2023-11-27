@@ -29,10 +29,6 @@ const SearchField = () => {
       if (response.ok) {
         const data: WordInfo[] = await response.json();
         setSearchResult(data[0]);
-
-        const params = new URLSearchParams(searchParams);
-        params.set('word', searchQuery);
-        router.push(pathname + '?' + params.toString());
       } else {
         console.error('Failed to fetch data from the API');
         if (searchQuery.length) {
@@ -41,6 +37,10 @@ const SearchField = () => {
       }
     } catch (error) {
       console.error('An error occurred while fetching data:', error);
+    } finally {
+      const params = new URLSearchParams(searchParams);
+      params.set('word', searchQuery);
+      router.push(pathname + '?' + params.toString());
     }
   };
 
@@ -60,6 +60,10 @@ const SearchField = () => {
           }
         } catch (error) {
           console.error('An error occurred while fetching data:', error);
+        } finally {
+          const params = new URLSearchParams(searchParams);
+          params.set('word', searchQuery);
+          router.push(pathname + '?' + params.toString());
         }
       }
     };
@@ -70,7 +74,7 @@ const SearchField = () => {
       setSearchResult(null);
       setSearchQuery('');
     }
-  }, [search]);
+  }, [pathname, router, search, searchParams, searchQuery]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
