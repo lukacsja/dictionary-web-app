@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Meaning, WordInfo, SubmitErrors } from '@/lib/types';
 import SearchResult from './search-result';
 import iconSearch from '../public/icons/icon-search.svg';
 import WordNotFound from './word-not-found';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 const SearchField = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const search = searchParams.get('word');
+
+  const [searchQuery, setSearchQuery] = useState<string>(search || '');
   const [searchResult, setSearchResult] = useState<WordInfo | null>(null);
   const [searchError, setSearchError] = useState<string>('');
 
@@ -23,6 +29,10 @@ const SearchField = () => {
       if (response.ok) {
         const data: WordInfo[] = await response.json();
         setSearchResult(data[0]);
+
+        const params = new URLSearchParams(searchParams);
+        params.set('word', searchQuery);
+        router.push(pathname + '?' + params.toString());
       } else {
         console.error('Failed to fetch data from the API');
         if (searchQuery.length) {
@@ -33,6 +43,34 @@ const SearchField = () => {
       console.error('An error occurred while fetching data:', error);
     }
   };
+
+  useEffect(() => {
+    const loadSearchResult = async () => {
+      if (search) {
+        try {
+          const response = await fetch(
+            `https://api.dictionaryapi.dev/api/v2/entries/en/${search}`
+          );
+          if (response.ok) {
+            const data: WordInfo[] = await response.json();
+            setSearchResult(data[0]);
+          } else {
+            console.error('Failed to fetch data from the API');
+            setSearchError(SubmitErrors.WordNotFound);
+          }
+        } catch (error) {
+          console.error('An error occurred while fetching data:', error);
+        }
+      }
+    };
+
+    loadSearchResult();
+
+    if (!search) {
+      setSearchResult(null);
+      setSearchQuery('');
+    }
+  }, [search]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -90,13 +128,14 @@ const SearchField = () => {
         </label>
         <div className='relative'>
           <input
+            id='searchField'
             type='text'
-            className='h-12 w-full rounded-2xl bg-gray-2 pl-6 pr-12 text-[16px] font-bold outline-none dark:bg-gray-7 md:h-16 md:text-[20px]'
-            placeholder='Search for any word...'
             value={searchQuery}
-            onChange={handleInputChange}
-            onInvalid={handleSubmitErrors}
+            placeholder='Search for any word...'
             required
+            onInvalid={handleSubmitErrors}
+            className='h-12 w-full rounded-2xl bg-gray-2 pl-6 pr-12 text-[16px] font-bold outline-none dark:bg-gray-7 md:h-16 md:text-[20px]'
+            onChange={handleInputChange}
           />
           <button
             type='submit'

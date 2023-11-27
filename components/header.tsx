@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Image from 'next/image';
 import logo from '../public/icons/logo.svg';
@@ -5,13 +7,17 @@ import SectionDivider from './section-divider';
 import FontSelector from './font-selector';
 import { useTheme } from '@/context/ThemeContext';
 import MoonLogo from './icons/moon-logo';
+import Link from 'next/link';
 
 const Header = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (
     <header className='mb-6 flex h-8 w-full items-center justify-between md:mb-[54px] lg:mb-[60px]'>
-      <Image src={logo} alt='logo' priority />
+      <Link href='/'>
+        <Image src={logo} alt='logo' priority />
+      </Link>
+
       <div className='flex h-full items-center gap-4'>
         <FontSelector />
         <SectionDivider direction='vertical' />
