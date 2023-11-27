@@ -75,7 +75,7 @@ const SearchField = () => {
       setSearchQuery('');
       setSearchError('');
     }
-  }, [search, searchError]);
+  }, [search]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
