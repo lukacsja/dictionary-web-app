@@ -13,6 +13,7 @@ Users should be able to:
 - Switch between serif, sans serif, and monospace fonts
 - Switch between light and dark themes (system default on first page load)
 - View the optimal layout for the interface depending on their device's screen size
+- Share or bookmark specific word searches with dynamic URL updates for a seamless experience in navigating search results
 
 ## Screenshot
 
