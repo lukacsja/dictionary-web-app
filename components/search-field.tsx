@@ -73,8 +73,9 @@ const SearchField = () => {
     if (!search) {
       setSearchResult(null);
       setSearchQuery('');
+      setSearchError('');
     }
-  }, [pathname, router, search, searchParams, searchQuery]);
+  }, [search, searchError]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
